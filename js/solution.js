@@ -3,7 +3,7 @@
 const urlApi = 'https://neto-api.herokuapp.com';
 const urlWss = 'wss://neto-api.herokuapp.com/pic';
 const errorFileType = 'Неверный формат файла. Пожалуйста, выберите изображение в формате .jpg или .png.';
-const errorFileType = 'Неверный формат файла. Пожалуйста, выберите изображение в формате .jpg или .png.';
+const errorMoreDrag = 'Чтобы загрузить новое изображение, пожалуйста, воспользуйтесь пунктом "Загрузить новое" в меню';
 
 const wrapCommentsCanvas = document.createElement('div');
 const canvas = document.createElement('canvas');
@@ -61,7 +61,7 @@ function errorRemove() {
 	}, 5000);
 }
 
-//
+
 function hide(el) {
 	el.setAttribute('style', 'display: none;');
 }
@@ -133,17 +133,17 @@ menu.dataset.state = 'initial';
 wrapApp.dataset.state = '';
 hide(menuBurger);
 
-	// убираем комментарии
+	// убираем комментарии 
 wrapApp.removeChild(formsComments);
 
 menuNewPic.addEventListener('click', uploadFileFromInput);
 wrapApp.addEventListener('drop', onFilesDrop);
 wrapApp.addEventListener('dragover', event => event.preventDefault());
 
-	// Загрузка изображения
+	// Загружаем изображение
 function uploadFileFromInput(event) {
 	hide(error);
-		//добавим форму для вызова 
+		//добавим окно выбора файла
 	const input = document.createElement('input');
 	input.setAttribute('id', 'fileInput');
 	input.setAttribute('type', 'file');
@@ -160,7 +160,7 @@ function uploadFileFromInput(event) {
 	menu.removeChild(input);
 }
 
-	// перемещение
+	// перетаскивание изображения
 function onFilesDrop(event) {
 	event.preventDefault();
 	hide(error);
@@ -288,7 +288,7 @@ function showMenuComments() {
 
 
 
-	// добавляем фон 
+	 
 function setcurrentImage(fileInfo) {
 	currentImage.src = fileInfo.url;
 }
@@ -406,7 +406,7 @@ function createCommentForm(x, y) {
 	formComment.addEventListener('submit', messageSend);
 	formComment.querySelector('.comments__input').addEventListener('keydown', keySendMessage);
 
-	
+	// отправка сообжения по нажатию Ctrl + Enter
 	function keySendMessage(event) {
 		if (event.repeat) { return; }
 		if (!event.ctrlKey) { return; }
@@ -490,7 +490,7 @@ function updateCommentForm(newComment) {
 			}
 		});
 
-		//создаем форму и добавляем в нее сообщение
+		
 		if (needCreateNewForm) {
 			const newForm = createCommentForm(newComment[id].left + 22, newComment[id].top + 14);
 			newForm.dataset.left = newComment[id].left;
@@ -540,7 +540,6 @@ function wss() {
 }
 
 
-// копируем ссылку по клику на кнопку "Копировать" 
 const copyUrl = document.querySelector('.menu_copy');  
 copyUrl.addEventListener('click', function(event) {  
 	// выбрали текст
@@ -556,7 +555,7 @@ copyUrl.addEventListener('click', function(event) {
 	window.getSelection().removeAllRanges();
 });
 
-// Получаем из ссылки параметр id
+
 let urlString = `${window.location.href}`;
 let url = new URL(urlString);
 let paramId = url.searchParams.get('id');
